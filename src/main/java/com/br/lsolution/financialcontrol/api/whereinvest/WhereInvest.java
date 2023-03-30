@@ -1,6 +1,6 @@
 package com.br.lsolution.financialcontrol.api.whereinvest;
 
-import com.br.lsolution.financialcontrol.api.jsonField.JsonWhereInvest;
+import com.br.lsolution.financialcontrol.api.model.jsonField.JsonWhereInvest;
 import com.br.lsolution.financialcontrol.api.model.dto.WhereInvestRequest;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;

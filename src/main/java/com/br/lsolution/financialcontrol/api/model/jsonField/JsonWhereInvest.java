@@ -1,4 +1,4 @@
-package com.br.lsolution.financialcontrol.api.jsonField;
+package com.br.lsolution.financialcontrol.api.model.jsonField;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
