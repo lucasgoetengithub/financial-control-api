@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 
@@ -49,6 +50,7 @@ public class UserService {
         return UserResponse.of(users);
     }
 
+    @Transactional
     public UserResponse save(UserRequest request){
         validateRequestSave(request);
         Users users = Users.of(request, pe.encode(request.getPassword()));
@@ -61,6 +63,7 @@ public class UserService {
         return UserResponse.of(users);
     }
 
+    @Transactional
     public UserResponse update(UserRequest request,
                                Integer id){
 
@@ -71,6 +74,7 @@ public class UserService {
         return UserResponse.of(users);
     }
 
+    @Transactional
     private Users buildUserUpdate(Users users, UserRequest request){
         if (request.getName() != null && !users.getName().equals(request.getName())) {
             users.setName(request.getName());
@@ -105,6 +109,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public SucessReponse delete(String email){
         validateInformedEmail(email);
         if (!repository.existsByEmail(email)) {
