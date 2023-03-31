@@ -8,7 +8,7 @@ import com.br.lsolution.financialcontrol.api.model.user.Users;
 import com.br.lsolution.financialcontrol.api.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +20,11 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @Service
 public class UserService {
 
-    @Autowired
-    private BCryptPasswordEncoder pe;
 
     @Autowired
     UserRepository repository;
+
+    private PasswordEncoder encoder;
 
     public UserResponse findByIdReponse(Integer id){
         return UserResponse.of(findById(id));
@@ -53,7 +53,7 @@ public class UserService {
     @Transactional
     public UserResponse save(UserRequest request){
         validateRequestSave(request);
-        Users users = Users.of(request, pe.encode(request.getPassword()));
+        Users users = Users.of(request, encoder.encode(request.getPassword()));
         users.setPerfis(new HashSet<>());
         request.getPerfis().forEach(x -> {
             users.addPerfilEnum(x);
