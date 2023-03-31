@@ -31,6 +31,18 @@ public class UserController {
         }
     }
 
+//    @PostMapping("/autenticar") TODO
+//    public ResponseEntity<?> autenticar( @RequestBody UsuarioDTO dto ) {
+//        try {
+//            Usuario usuarioAutenticado = service.autenticar(dto.getEmail(), dto.getSenha());
+//            String token = jwtService.gerarToken(usuarioAutenticado);
+//            TokenDTO tokenDTO = new TokenDTO( usuarioAutenticado.getNome(), token);
+//            return ResponseEntity.ok(tokenDTO);
+//        }catch (ErroAutenticacao e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
+
     @DeleteMapping("{id}")
     public SucessReponse delete(@PathVariable String email){
         return service.delete(email);

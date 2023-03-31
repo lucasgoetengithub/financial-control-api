@@ -5,7 +5,7 @@ import com.br.lsolution.financialcontrol.api.config.exception.ValidationExceptio
 import com.br.lsolution.financialcontrol.api.model.dto.UserRequest;
 import com.br.lsolution.financialcontrol.api.model.dto.UserResponse;
 import com.br.lsolution.financialcontrol.api.model.user.Users;
-import com.br.lsolution.financialcontrol.api.repository.UserRepository;
+import com.br.lsolution.financialcontrol.api.repository.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,7 +1,7 @@
 package com.br.lsolution.financialcontrol.api.service;
 
 import com.br.lsolution.financialcontrol.api.model.user.Users;
-import com.br.lsolution.financialcontrol.api.repository.UserRepository;
+import com.br.lsolution.financialcontrol.api.repository.user.UserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

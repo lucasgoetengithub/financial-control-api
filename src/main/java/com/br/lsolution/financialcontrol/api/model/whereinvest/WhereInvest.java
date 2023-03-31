@@ -1,4 +1,4 @@
-package com.br.lsolution.financialcontrol.api.whereinvest;
+package com.br.lsolution.financialcontrol.api.model.whereinvest;
 
 import com.br.lsolution.financialcontrol.api.model.jsonField.JsonWhereInvest;
 import com.br.lsolution.financialcontrol.api.model.dto.WhereInvestRequest;

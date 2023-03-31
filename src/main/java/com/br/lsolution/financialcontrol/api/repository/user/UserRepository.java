@@ -1,4 +1,4 @@
-package com.br.lsolution.financialcontrol.api.repository;
+package com.br.lsolution.financialcontrol.api.repository.user;
 
 import com.br.lsolution.financialcontrol.api.model.user.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
