@@ -54,7 +54,7 @@ public class WhereInvestService {
 
         List<WhereInvestResponse> response = new ArrayList<>();
         optionalList.forEach(optionalObj -> {
-            response.add(WhereInvestResponse.of(optionalObj.orElseThrow()));
+            response.add(WhereInvestResponse.of(optionalObj.get()));
         });
 
         return response;
@@ -77,7 +77,7 @@ public class WhereInvestService {
         LocalDate now = LocalDate.now();
         AtomicReference<WhereInvestResponse> whereInvestAnterior = new AtomicReference<>();
         optionalList.forEach(optionalObj -> {
-            WhereInvestResponse whereInvestResponse = WhereInvestResponse.of(optionalObj.orElseThrow());
+            WhereInvestResponse whereInvestResponse = WhereInvestResponse.of(optionalObj.get());
             if ((whereInvestResponse.getDate().getMonth().equals(now.getMonth())) &&
                     (whereInvestResponse.getDate().getYear() == now.getYear())) {
                 response.add(whereInvestResponse);
@@ -109,7 +109,7 @@ public class WhereInvestService {
         List<WhereInvestResponse> response = new ArrayList<>();
 
         optionalList.forEach(optionalObj -> {
-            WhereInvestResponse whereInvestResponse = WhereInvestResponse.of(optionalObj.orElseThrow());
+            WhereInvestResponse whereInvestResponse = WhereInvestResponse.of(optionalObj.get());
             if (whereInvestResponse.getDate().getMonth().equals(now.getMonth())) {
                 response.add(whereInvestResponse);
             }
@@ -166,7 +166,7 @@ public class WhereInvestService {
 
             List<JsonWhereInvest> investListData = mapper.convertValue(
                     whereInvest.getJsonWhereInvest(),
-                    new TypeReference<>(){}
+                    new TypeReference<List<JsonWhereInvest>>(){}
             );
 
             investListData.forEach(jsonWhereInvest -> {
