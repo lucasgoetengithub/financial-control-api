@@ -1,5 +1,6 @@
 package com.br.lsolution.financialcontrol.api.service.user;
 
+import com.br.lsolution.financialcontrol.api.config.exception.AuthenticatedException;
 import com.br.lsolution.financialcontrol.api.config.exception.SucessReponse;
 import com.br.lsolution.financialcontrol.api.config.exception.ValidationException;
 import com.br.lsolution.financialcontrol.api.model.dto.UserRequest;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -130,5 +132,21 @@ public class UserService {
         if (isEmpty(id)) {
             throw new ValidationException("The User id must be informed.");
         }
+    }
+
+    public Users autenticar(String email, String senha) {
+        Optional<Users> usuario = repository.findByEmail(email);
+
+        if(!usuario.isPresent()) {
+            throw new ValidationException("Usuário não encontrado para o email informado.");
+        }
+
+        boolean senhasBatem = encoder.matches(senha, usuario.get().getPassword());
+
+        if(!senhasBatem) {
+            throw new AuthenticatedException("Senha inválida.");
+        }
+
+        return usuario.get();
     }
 }
