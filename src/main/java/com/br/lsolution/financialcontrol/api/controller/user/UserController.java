@@ -1,6 +1,7 @@
 package com.br.lsolution.financialcontrol.api.controller.user;
 
 import com.br.lsolution.financialcontrol.api.config.exception.SucessReponse;
+import com.br.lsolution.financialcontrol.api.model.dto.RegisterDTO;
 import com.br.lsolution.financialcontrol.api.model.dto.TokenDTO;
 import com.br.lsolution.financialcontrol.api.model.dto.UserRequest;
 import com.br.lsolution.financialcontrol.api.model.dto.UserResponse;
@@ -23,7 +24,7 @@ public class UserController {
     private final JwtService jwtService;
 
     @PostMapping
-    public UserResponse save(@RequestBody UserRequest request){
+    public UserResponse save(@RequestBody RegisterDTO request){
         return service.save(request);
     }
 

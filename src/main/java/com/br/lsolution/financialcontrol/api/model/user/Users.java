@@ -1,8 +1,10 @@
 package com.br.lsolution.financialcontrol.api.model.user;
 
+import com.br.lsolution.financialcontrol.api.model.dto.RegisterDTO;
 import com.br.lsolution.financialcontrol.api.model.dto.UserRequest;
 import com.br.lsolution.financialcontrol.api.model.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.vm.ci.code.Register;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -51,6 +53,14 @@ public class Users {
                 .email(request.getEmail())
                 .password(password)
                 .amount(request.getAmount())
+                .build();
+    }
+
+    public static Users of(RegisterDTO request, String password) {
+        return Users.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(password)
                 .build();
     }
 

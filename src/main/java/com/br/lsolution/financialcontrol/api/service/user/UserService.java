@@ -3,6 +3,7 @@ package com.br.lsolution.financialcontrol.api.service.user;
 import com.br.lsolution.financialcontrol.api.config.exception.AuthenticatedException;
 import com.br.lsolution.financialcontrol.api.config.exception.SucessReponse;
 import com.br.lsolution.financialcontrol.api.config.exception.ValidationException;
+import com.br.lsolution.financialcontrol.api.model.dto.RegisterDTO;
 import com.br.lsolution.financialcontrol.api.model.dto.UserRequest;
 import com.br.lsolution.financialcontrol.api.model.dto.UserResponse;
 import com.br.lsolution.financialcontrol.api.model.user.Users;
@@ -53,8 +54,8 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse save(UserRequest request){
-        validateRequestSave(request);
+    public UserResponse save(RegisterDTO request){
+        //validateRequestSave(request); TODO
         Users users = Users.of(request, encoder.encode(request.getPassword()));
         users.setPerfis(new HashSet<>());
         request.getPerfis().forEach(x -> {
