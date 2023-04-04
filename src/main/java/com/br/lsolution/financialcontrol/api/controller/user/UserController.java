@@ -27,7 +27,7 @@ public class UserController {
         return service.save(request);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+
     @GetMapping("email/{email}")
     public ResponseEntity findByEmail(@PathVariable String email){
         try {
@@ -55,7 +55,7 @@ public class UserController {
         return service.delete(email);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+
     @PutMapping("{id}")
     public UserResponse update(@RequestBody UserRequest request, @PathVariable Integer id){
         return service.update(request, id);
