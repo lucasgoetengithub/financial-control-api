@@ -27,6 +27,7 @@ public class UserService {
     @Autowired
     UserRepository repository;
 
+    @Autowired
     private PasswordEncoder encoder;
 
     public UserResponse findByIdReponse(Integer id){
