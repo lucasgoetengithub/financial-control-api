@@ -4,7 +4,6 @@ import com.br.lsolution.financialcontrol.api.model.dto.RegisterDTO;
 import com.br.lsolution.financialcontrol.api.model.dto.UserRequest;
 import com.br.lsolution.financialcontrol.api.model.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.vm.ci.code.Register;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
