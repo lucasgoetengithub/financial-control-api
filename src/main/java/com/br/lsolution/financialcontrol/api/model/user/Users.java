@@ -56,7 +56,7 @@ public class Users {
                 .build();
     }
 
-    public static Users of(RegisterDTO request, String password) {
+    public static Users ofRegister(RegisterDTO request, String password) {
         return Users.builder()
                 .name(request.getName())
                 .email(request.getEmail())

@@ -56,7 +56,7 @@ public class UserService {
     @Transactional
     public UserResponse save(RegisterDTO request){
         //validateRequestSave(request); TODO
-        Users users = Users.of(request, encoder.encode(request.getPassword()));
+        Users users = Users.ofRegister(request, encoder.encode(request.getPassword()));
         users.setPerfis(new HashSet<>());
         request.getPerfis().forEach(x -> {
             users.addPerfilEnum(x);
