@@ -1,5 +1,6 @@
 package com.br.lsolution.financialcontrol.api.controller.user;
 
+import com.br.lsolution.financialcontrol.api.config.exception.ErrorResponse;
 import com.br.lsolution.financialcontrol.api.config.exception.SucessReponse;
 import com.br.lsolution.financialcontrol.api.model.dto.TokenDTO;
 import com.br.lsolution.financialcontrol.api.model.dto.UserRequest;
@@ -9,8 +10,11 @@ import com.br.lsolution.financialcontrol.api.service.JwtService;
 import com.br.lsolution.financialcontrol.api.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.ws.rs.core.Response;
 
 @RestController
 @RequestMapping("/users")
@@ -29,12 +33,13 @@ public class UserController {
 
 
     @GetMapping("email/{email}")
-    public ResponseEntity findByEmail(@PathVariable String email){
+    public Response findByEmail(@PathVariable String email){
         try {
             UserResponse userResponse = service.findByEmail(email);
-            return ResponseEntity.ok(userResponse);
+            return Response.ok(userResponse).build();
         }catch (Exception ex) {
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            ErrorResponse errorResponse =  ErrorResponse.create(ex.getMessage(), HttpStatus.NOT_FOUND);
+            return Response.ok(errorResponse).build();
         }
     }
 
