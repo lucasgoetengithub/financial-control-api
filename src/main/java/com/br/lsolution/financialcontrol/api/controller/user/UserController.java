@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     @Autowired
@@ -29,10 +30,10 @@ public class UserController {
     }
 
 
-    @GetMapping("email/{email}")
-    public ResponseEntity findByEmail(@PathVariable String email){
+    @PostMapping("email")
+    public ResponseEntity findByEmail(@RequestBody UserRequest request){
         try {
-            UserResponse userResponse = service.findByEmail(email);
+            UserResponse userResponse = service.findByEmail(request.getEmail());
             return ResponseEntity.ok(userResponse);
         }catch (Exception ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
