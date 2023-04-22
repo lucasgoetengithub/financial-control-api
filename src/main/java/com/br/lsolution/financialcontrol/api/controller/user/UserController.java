@@ -30,7 +30,8 @@ public class UserController {
     }
 
 
-    @PostMapping("email")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/email")
     public ResponseEntity findByEmail(@RequestBody UserRequest request){
         try {
             UserResponse userResponse = service.findByEmail(request.getEmail());
