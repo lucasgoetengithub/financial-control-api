@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000", "https://financial-control-api.herokuapp.com/"})
+@CrossOrigin(origins = {"http://localhost:3000", "https://financial-control-front.herokuapp.com"})
 public class UserController {
 
     @Autowired
