@@ -10,6 +10,8 @@ import com.br.lsolution.financialcontrol.api.model.user.Users;
 import com.br.lsolution.financialcontrol.api.repository.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,10 +50,25 @@ public class UserService {
         }
 
         Users users = repository
-                .findByEmail(email)
-                .orElseThrow(() -> new ValidationException("There's no User for the given Email."));
+                .findByEmail(email);
+
+        if (users == null) {
+            throw new ValidationException("There's no User for the given Email.");
+        }
 
         return UserResponse.of(users);
+    }
+
+    public ResponseEntity existeUsuario(String email) {
+        if (isEmpty(email)){
+            throw new ValidationException("The user email must be informed.");
+        }
+
+        Boolean existe = repository
+                .existsByEmail(email);
+
+
+        return ResponseEntity.ok(existe);
     }
 
     @Transactional
@@ -137,18 +154,18 @@ public class UserService {
     }
 
     public Users autenticar(String email, String senha) {
-        Optional<Users> usuario = repository.findByEmail(email);
+        Users usuario = repository.findByEmail(email);
 
-        if(!usuario.isPresent()) {
+        if(usuario == null) {
             throw new ValidationException("Usuário não encontrado para o email informado.");
         }
 
-        boolean senhasBatem = encoder.matches(senha, usuario.get().getPassword());
+        boolean senhasBatem = encoder.matches(senha, usuario.getPassword());
 
         if(!senhasBatem) {
             throw new AuthenticatedException("Senha inválida.");
         }
 
-        return usuario.get();
+        return usuario;
     }
 }

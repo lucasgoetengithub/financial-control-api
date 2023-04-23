@@ -20,8 +20,11 @@ public class SecurityUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Users usuarioEncontrado = usuarioRepository
-                .findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Email não cadastrado."));
+                .findByEmail(email);
+
+        if (usuarioEncontrado == null) {
+            throw new UsernameNotFoundException("Email não cadastrado.");
+        }
 
         return User.builder()
                 .username(usuarioEncontrado.getEmail())

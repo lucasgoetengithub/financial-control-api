@@ -40,10 +40,10 @@ public class DistributionWhereInvestService {
     WhereInvestRepository whereInvestRepository;
 
     public ArrayList<TotalExpensesAndInvestResponse> getArrayListOfExpensesAndInvestments(String userEmail){
-        Optional<Users> usersOptional = userRepository.findByEmail(userEmail);
+        Users usersOptional = userRepository.findByEmail(userEmail);
         ArrayList<TotalExpensesAndInvestResponse> listResposta = new ArrayList<>();
-        if (usersOptional.isPresent()) {
-            Users user = usersOptional.get();
+        if (usersOptional != null) {
+            Users user = usersOptional;
 
             List<Optional<WhereInvest>> optionalList = whereInvestRepository
                     .findByUserId(user.getId());

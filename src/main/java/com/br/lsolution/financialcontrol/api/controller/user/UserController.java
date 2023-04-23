@@ -29,6 +29,16 @@ public class UserController {
         return service.save(request);
     }
 
+    @PostMapping("/existe")
+    public ResponseEntity existeUsuario(@RequestBody UserRequest request){
+        try {
+            ResponseEntity response = service.existeUsuario(request.getEmail());
+            return response;
+        }catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/email")
