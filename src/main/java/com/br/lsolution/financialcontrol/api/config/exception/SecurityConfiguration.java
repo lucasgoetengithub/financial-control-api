@@ -70,6 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore( corsFilter, UsernamePasswordAuthenticationFilter.class )
                 .addFilterBefore( jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class )
+                .addFilterBefore( corsFilter(), UsernamePasswordAuthenticationFilter.class )
         ;
 
     }
