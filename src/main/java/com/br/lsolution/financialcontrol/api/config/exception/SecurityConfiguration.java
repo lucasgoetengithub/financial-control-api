@@ -74,28 +74,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Bean
-    public FilterRegistrationBean<CorsFilter> corsFilter(){
-
-        List<String> all = Arrays.asList("*");
-
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedMethods(all);
-        config.setAllowedOrigins(all);
-        config.setAllowedHeaders(all);
-        config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-
-        CorsFilter corFilter = new CorsFilter(source);
-
-        FilterRegistrationBean<CorsFilter> filter =
-                new FilterRegistrationBean<CorsFilter>(corFilter);
-        filter.setOrder(Ordered.HIGHEST_PRECEDENCE);
-
-        return filter;
-    }
+//    @Bean
+//    public FilterRegistrationBean<CorsFilter> corsFilter(){
+//
+//        List<String> all = Arrays.asList("*");
+//
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowedMethods(all);
+//        config.setAllowedOrigins(all);
+//        config.setAllowedHeaders(all);
+//        config.setAllowCredentials(true);
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", config);
+//
+//        CorsFilter corFilter = new CorsFilter(source);
+//
+//        FilterRegistrationBean<CorsFilter> filter =
+//                new FilterRegistrationBean<CorsFilter>(corFilter);
+//        filter.setOrder(Ordered.HIGHEST_PRECEDENCE);
+//
+//        return filter;
+//    }
 
 
 
