@@ -31,6 +31,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtService jwtService;
 
+    @Autowired
+    private CorsFilter corsFilter;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -65,6 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .addFilterBefore( corsFilter, UsernamePasswordAuthenticationFilter.class )
                 .addFilterBefore( jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class )
         ;
 
