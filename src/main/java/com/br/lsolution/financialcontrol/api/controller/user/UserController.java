@@ -55,7 +55,7 @@ public class UserController {
     public ResponseEntity<?> autenticar( @RequestBody UserRequest dto ) {
         try {
             Users usuario = service.autenticar(dto.getEmail(), dto.getPassword());
-            String token = jwtService.gerarToken(usuario);
+            String token = "Bearer " + jwtService.gerarToken(usuario);
             TokenDTO tokenDTO = new TokenDTO( usuario.getName(), token);
             return ResponseEntity.ok(tokenDTO);
         }catch (Exception e) {
