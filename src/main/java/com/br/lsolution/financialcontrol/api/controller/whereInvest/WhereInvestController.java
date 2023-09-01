@@ -8,6 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -46,6 +54,14 @@ public class WhereInvestController {
     @GetMapping("/allByUser/{userId}")
     public ResponseEntity<List<WhereInvestResponse>> findByUserId(@PathVariable Integer userId){
         return ResponseEntity.ok(service.findByUserId(userId));
+    }
+
+    @GetMapping("/allByUser/reference/{userId}/{reference}")
+    public ResponseEntity<List<WhereInvestResponse>> findByUserIdAndReference(@PathVariable Integer userId,
+                                                                              @PathVariable String reference) throws ParseException {
+
+        LocalDate ld = LocalDate.parse(reference, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return ResponseEntity.ok(service.findByUserIdAndReference(userId, ld));
     }
 
     @GetMapping("/history/{userId}")

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -98,6 +99,22 @@ public class WhereInvestService {
 
             return newReturn(userId, now);
         }
+
+        return response;
+    }
+
+    public List<WhereInvestResponse> findByUserIdAndReference(Integer userId, LocalDate reference){
+        validateInformedId(userId);
+        validateInformedReference(reference);
+        List<Optional<WhereInvest>> optionalList = repository
+                .findByUserIdAndReference(userId, reference);
+
+        List<WhereInvestResponse> response = new ArrayList<>();
+
+        optionalList.forEach(optionalObj -> {
+            WhereInvestResponse whereInvestResponse = WhereInvestResponse.of(optionalObj.get());
+            response.add(whereInvestResponse);
+        });
 
         return response;
     }
@@ -187,6 +204,12 @@ public class WhereInvestService {
     private void validateInformedId(Integer id){
         if (isEmpty(id)) {
             throw new ValidationException("The User id must be informed.");
+        }
+    }
+
+    private void validateInformedReference(LocalDate reference){
+        if (isEmpty(reference)) {
+            throw new ValidationException("The reference must be informed.");
         }
     }
 }
