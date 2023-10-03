@@ -139,6 +139,8 @@ public class WhereInvestService {
     public SucessReponse save(WhereInvestRequest request, Integer userId){
         Users users = userService.findById(userId);
         WhereInvest whereInvest = WhereInvest.of(request);
+        LocalDate saveDate = LocalDate.of(whereInvest.getReference().getYear(), whereInvest.getReference().getMonth(), 1);
+        whereInvest.setReference(saveDate);
         repository.save(whereInvest);
         userRepository.save(users);
         return SucessReponse.create("The WhereInvest was created for this user.");
