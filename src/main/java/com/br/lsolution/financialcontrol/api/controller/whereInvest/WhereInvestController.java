@@ -60,8 +60,8 @@ public class WhereInvestController {
     public ResponseEntity<List<WhereInvestResponse>> findByUserIdAndReference(@PathVariable Integer userId,
                                                                               @PathVariable String reference) throws ParseException {
 
-        LocalDate ld = LocalDate.parse(reference, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        return ResponseEntity.ok(service.findByUserIdAndReference(userId, ld));
+
+        return ResponseEntity.ok(service.findByUserIdAndReference(userId, reference));
     }
 
     @GetMapping("/history/{userId}")
