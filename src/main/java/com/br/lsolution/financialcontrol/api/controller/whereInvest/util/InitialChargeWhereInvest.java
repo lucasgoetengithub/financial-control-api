@@ -20,6 +20,7 @@ public class InitialChargeWhereInvest {
     public void InitialChargeWhereInvest(Integer userId) {
         WhereInvest whereInvest = new WhereInvest();
         whereInvest.setUserId(userId);
+        whereInvest.setAmount(BigDecimal.ZERO);
         LocalDate now = LocalDate.now();
         LocalDate saveDate = LocalDate.of(now.getYear(), now.getMonth(), 1);
         whereInvest.setReference(saveDate);
