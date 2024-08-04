@@ -1,6 +1,6 @@
 package com.br.lsolution.financialcontrol.api.controller.distributionWhereInvest;
 
-import com.br.lsolution.financialcontrol.api.config.exception.SucessReponse;
+import com.br.lsolution.financialcontrol.api.config.exception.SucessResponse;
 import com.br.lsolution.financialcontrol.api.model.dto.DistributionWhereInvestRequest;
 import com.br.lsolution.financialcontrol.api.model.dto.DistributionWhereInvestResponse;
 import com.br.lsolution.financialcontrol.api.model.dto.TotalExpensesAndInvestResponse;
@@ -18,19 +18,19 @@ public class DistributionWhereInvestController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/save")
-    public SucessReponse save(@RequestBody DistributionWhereInvestRequest request){
+    public SucessResponse save(@RequestBody DistributionWhereInvestRequest request){
         return service.save(request);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/delete/{id}/{focusedWhereInvestId}/{whereInvestId}")
-    public SucessReponse delete(@PathVariable Integer id, @PathVariable Integer focusedWhereInvestId, @PathVariable Integer whereInvestId){
+    public SucessResponse delete(@PathVariable Integer id, @PathVariable Integer focusedWhereInvestId, @PathVariable Integer whereInvestId){
         return service.delete(id, focusedWhereInvestId, whereInvestId);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/update/{id}")
-    public SucessReponse update(@PathVariable Integer id, @RequestBody DistributionWhereInvestRequest request){
+    public SucessResponse update(@PathVariable Integer id, @RequestBody DistributionWhereInvestRequest request){
         return service.update(request, id);
     }
 

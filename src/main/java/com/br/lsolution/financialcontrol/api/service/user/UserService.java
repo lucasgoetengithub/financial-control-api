@@ -1,7 +1,7 @@
 package com.br.lsolution.financialcontrol.api.service.user;
 
 import com.br.lsolution.financialcontrol.api.config.exception.AuthenticatedException;
-import com.br.lsolution.financialcontrol.api.config.exception.SucessReponse;
+import com.br.lsolution.financialcontrol.api.config.exception.SucessResponse;
 import com.br.lsolution.financialcontrol.api.config.exception.ValidationException;
 import com.br.lsolution.financialcontrol.api.model.dto.RegisterDTO;
 import com.br.lsolution.financialcontrol.api.model.dto.UserRequest;
@@ -11,13 +11,11 @@ import com.br.lsolution.financialcontrol.api.repository.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
-import java.util.Optional;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -131,14 +129,14 @@ public class UserService {
     }
 
     @Transactional
-    public SucessReponse delete(String email){
+    public SucessResponse delete(String email){
         validateInformedEmail(email);
         if (!repository.existsByEmail(email)) {
             throw new ValidationException("The User does not exists.");
         }
 
         repository.deleteByEmail(email);
-        return SucessReponse.create("The User was deleted.");
+        return SucessResponse.create("The User was deleted.");
     }
 
     private void validateInformedEmail(String email){
@@ -167,5 +165,12 @@ public class UserService {
         }
 
         return usuario;
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public void changePassword(String email, String newPassword) {
+        Users user = repository.findByEmail(email);
+        user.setPassword(newPassword);
+        repository.save(user);
     }
 }

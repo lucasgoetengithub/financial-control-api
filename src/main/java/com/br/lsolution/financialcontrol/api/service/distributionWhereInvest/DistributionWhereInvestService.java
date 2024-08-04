@@ -1,6 +1,6 @@
 package com.br.lsolution.financialcontrol.api.service.distributionWhereInvest;
 
-import com.br.lsolution.financialcontrol.api.config.exception.SucessReponse;
+import com.br.lsolution.financialcontrol.api.config.exception.SucessResponse;
 import com.br.lsolution.financialcontrol.api.config.exception.ValidationException;
 import com.br.lsolution.financialcontrol.api.model.distributionWhereInvest.DistributionWhereInvest;
 import com.br.lsolution.financialcontrol.api.model.dto.DistributionWhereInvestRequest;
@@ -109,20 +109,20 @@ public class DistributionWhereInvestService {
         return response;
     }
 
-    public SucessReponse save(DistributionWhereInvestRequest request){
+    public SucessResponse save(DistributionWhereInvestRequest request){
         DistributionWhereInvest distributionWhereInvest = DistributionWhereInvest.of(request);
         repository.save(distributionWhereInvest);
-        return SucessReponse.create("The DistributionWhereInvest was created for this user.");
+        return SucessResponse.create("The DistributionWhereInvest was created for this user.");
     }
 
-    public SucessReponse update(DistributionWhereInvestRequest request,
-                                Integer id){
+    public SucessResponse update(DistributionWhereInvestRequest request,
+                                 Integer id){
 
         DistributionWhereInvest distributionWhereInvest = repository.findById(id)
                 .orElseThrow(() -> new ValidationException("There's no DistributionWhereInvest for this User."));
 
         repository.save(buildDistributionWhereInvestUpdate(distributionWhereInvest, request));
-        return SucessReponse.create("The WhereInvest was updated for this user.");
+        return SucessResponse.create("The WhereInvest was updated for this user.");
     }
 
     private DistributionWhereInvest buildDistributionWhereInvestUpdate(DistributionWhereInvest distributionWhereInvest, DistributionWhereInvestRequest request){
@@ -158,7 +158,7 @@ public class DistributionWhereInvestService {
     }
 
     @Transactional
-    public SucessReponse delete(Integer focusedId, Integer whereInvestIdFocused, Integer whereInvestId){
+    public SucessResponse delete(Integer focusedId, Integer whereInvestIdFocused, Integer whereInvestId){
         validateInformedId(focusedId);
         validateInformedId(whereInvestIdFocused);
         validateInformedId(whereInvestId);
@@ -186,9 +186,9 @@ public class DistributionWhereInvestService {
 
             repository.save(distributionWhereInvest);
 
-            return SucessReponse.create("The DistributionWhereInvest for this User was deleted.");
+            return SucessResponse.create("The DistributionWhereInvest for this User was deleted.");
         } else {
-            return SucessReponse.create("The DistributionWhereInvest don't exist for this User.");
+            return SucessResponse.create("The DistributionWhereInvest don't exist for this User.");
         }
     }
 

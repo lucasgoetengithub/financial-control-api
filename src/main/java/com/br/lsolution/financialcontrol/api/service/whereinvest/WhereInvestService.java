@@ -1,6 +1,6 @@
 package com.br.lsolution.financialcontrol.api.service.whereinvest;
 
-import com.br.lsolution.financialcontrol.api.config.exception.SucessReponse;
+import com.br.lsolution.financialcontrol.api.config.exception.SucessResponse;
 import com.br.lsolution.financialcontrol.api.config.exception.ValidationException;
 import com.br.lsolution.financialcontrol.api.controller.whereInvest.util.InitialChargeWhereInvest;
 import com.br.lsolution.financialcontrol.api.model.dto.WhereInvestRequest;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -169,17 +168,17 @@ public class WhereInvestService {
         return response;
     }
 
-    public SucessReponse save(WhereInvestRequest request, Integer userId){
+    public SucessResponse save(WhereInvestRequest request, Integer userId){
         Users users = userService.findById(userId);
         WhereInvest whereInvest = WhereInvest.of(request);
         LocalDate saveDate = LocalDate.of(whereInvest.getReference().getYear(), whereInvest.getReference().getMonth(), 1);
         whereInvest.setReference(saveDate);
         repository.save(whereInvest);
         userRepository.save(users);
-        return SucessReponse.create("The WhereInvest was created for this user.");
+        return SucessResponse.create("The WhereInvest was created for this user.");
     }
 
-    public SucessReponse updateAmount(WhereInvestRequest request){
+    public SucessResponse updateAmount(WhereInvestRequest request){
         WhereInvest whereInvest  = repository.findByIdAndUserId(request.getId(), request.getUserId())
                 .orElseThrow(() -> new ValidationException("There's no WhereInvest for this Id and User."));
 
@@ -187,16 +186,16 @@ public class WhereInvestService {
 
         repository.save(whereInvest);
 
-        return SucessReponse.create("The WhereInvest was updated for this user.");
+        return SucessResponse.create("The WhereInvest was updated for this user.");
     }
 
-    public SucessReponse update(WhereInvestRequest request){
+    public SucessResponse update(WhereInvestRequest request){
         WhereInvest whereInvest  = repository.findByIdAndUserId(request.getId(), request.getUserId())
                 .orElseThrow(() -> new ValidationException("There's no WhereInvest for this Id and User."));
 
         repository.save(buildWhereInvestUpdate(whereInvest, request));
 
-        return SucessReponse.create("The WhereInvest was updated for this user.");
+        return SucessResponse.create("The WhereInvest was updated for this user.");
     }
 
     private WhereInvest buildWhereInvestUpdate(WhereInvest whereInvest, WhereInvestRequest request){
@@ -206,7 +205,7 @@ public class WhereInvestService {
         return whereInvest;
     }
 
-    public SucessReponse delete(Integer id, Integer whereInvestId){
+    public SucessResponse delete(Integer id, Integer whereInvestId){
         Optional<WhereInvest> optionalWhereInvest = repository.findById(whereInvestId);
         if (optionalWhereInvest.isPresent()) {
 
@@ -233,7 +232,7 @@ public class WhereInvestService {
 
         }
 
-        return SucessReponse.create("The WhereInvest for this User was deleted.");
+        return SucessResponse.create("The WhereInvest for this User was deleted.");
     }
 
     private void validateInformedId(Integer id){

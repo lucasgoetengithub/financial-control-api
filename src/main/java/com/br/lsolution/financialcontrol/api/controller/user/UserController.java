@@ -1,10 +1,7 @@
 package com.br.lsolution.financialcontrol.api.controller.user;
 
-import com.br.lsolution.financialcontrol.api.config.exception.SucessReponse;
-import com.br.lsolution.financialcontrol.api.model.dto.RegisterDTO;
-import com.br.lsolution.financialcontrol.api.model.dto.TokenDTO;
-import com.br.lsolution.financialcontrol.api.model.dto.UserRequest;
-import com.br.lsolution.financialcontrol.api.model.dto.UserResponse;
+import com.br.lsolution.financialcontrol.api.config.exception.SucessResponse;
+import com.br.lsolution.financialcontrol.api.model.dto.*;
 import com.br.lsolution.financialcontrol.api.model.user.UserRecoveryCode;
 import com.br.lsolution.financialcontrol.api.model.user.Users;
 import com.br.lsolution.financialcontrol.api.service.JwtService;
@@ -12,10 +9,7 @@ import com.br.lsolution.financialcontrol.api.service.user.UserRecoveryCodeServic
 import com.br.lsolution.financialcontrol.api.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -73,7 +67,7 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    public SucessReponse delete(@PathVariable String email){
+    public SucessResponse delete(@PathVariable String email){
         return service.delete(email);
     }
 
@@ -86,5 +80,10 @@ public class UserController {
     @PostMapping("/sentEmailRecovery")
     public String sentEmailRecovery(@RequestBody UserRecoveryCode userRecoveryCode ) {
         return userRecoveryCodeService.sentEmailRecovery(userRecoveryCode);
+    }
+
+    @PostMapping("/changePassword")
+    public SucessResponse changePassword(@RequestBody RecoveryDTO recoveryDTO) {
+        return userRecoveryCodeService.changePassword(recoveryDTO);
     }
 }

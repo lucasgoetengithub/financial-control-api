@@ -10,13 +10,13 @@ import org.springframework.http.HttpStatus;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SucessReponse {
+public class SucessResponse {
 
     private Integer status;
     private String message;
 
-    public static SucessReponse create(String message) {
-        return SucessReponse
+    public static SucessResponse create(String message) {
+        return SucessResponse
                 .builder()
                 .status(HttpStatus.OK.value())
                 .message(message)
