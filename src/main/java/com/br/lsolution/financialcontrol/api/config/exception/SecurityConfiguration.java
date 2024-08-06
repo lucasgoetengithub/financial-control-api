@@ -65,6 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/users/email").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/existe").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/sentEmailRecovery").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/changePassword").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

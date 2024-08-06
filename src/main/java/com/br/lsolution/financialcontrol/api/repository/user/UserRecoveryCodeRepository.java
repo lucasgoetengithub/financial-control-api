@@ -11,8 +11,8 @@ import java.util.Optional;
 @Repository
 public interface UserRecoveryCodeRepository extends JpaRepository<UserRecoveryCode, Integer> {
 
-    @Query("SELECT urc FROM UserRecoveryCode urc WHERE urc.userEmail = :email ORDER BY urc.dataCriacao DESC")
-    Optional<UserRecoveryCode> findLatestRecoveryCode(@Param("email") String email);
+    @Query(value = "SELECT * FROM users_recovery WHERE user_email = :email ORDER BY data_criacao DESC LIMIT 1", nativeQuery = true)
+    UserRecoveryCode findLatestRecoveryCode(@Param("email") String email);
 
     @Query("DELETE FROM UserRecoveryCode urc WHERE urc.userEmail = :email")
     void deleteAllFromEmail(@Param("email") String email);

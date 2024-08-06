@@ -55,7 +55,7 @@ public class UserRecoveryCodeService {
 
             SimpleMailMessage message = new SimpleMailMessage();
             message.setSubject("Codigo para recuperação de senha!");
-            message.setText("Utilize o código: " + getGeneratedCode() + " para recuperar sua senha.");
+            message.setText("Utilize o código: " + codigo + " para recuperar sua senha.");
             message.setTo(requisicao.getUserEmail());
             message.setFrom("suportfinancialcontrol@outlook.com");
 
@@ -87,9 +87,8 @@ public class UserRecoveryCodeService {
 
     public SucessResponse changePassword(RecoveryDTO recoveryDTO) {
         try {
-            Optional<UserRecoveryCode> optionalUserRecoveryCode = repository.findLatestRecoveryCode(recoveryDTO.getEmail());
-            if (optionalUserRecoveryCode.isPresent()) {
-                UserRecoveryCode userRecoveryCode = optionalUserRecoveryCode.get();
+            UserRecoveryCode userRecoveryCode = repository.findLatestRecoveryCode(recoveryDTO.getEmail());
+            if (userRecoveryCode != null) {
                 if (userRecoveryCode.getCodigoRecuperacao().equalsIgnoreCase(recoveryDTO.getCodigo())) {
                     String newPassword = encoder.encode(recoveryDTO.getPassword());
                     userService.changePassword(recoveryDTO.getEmail(), newPassword);
