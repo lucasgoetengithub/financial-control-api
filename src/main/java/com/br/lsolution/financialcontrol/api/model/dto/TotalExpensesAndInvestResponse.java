@@ -14,5 +14,6 @@ public class TotalExpensesAndInvestResponse {
     private BigDecimal amount;
     private BigDecimal expenses;
     private BigDecimal investments;
+    private BigDecimal estudos;
 
 }

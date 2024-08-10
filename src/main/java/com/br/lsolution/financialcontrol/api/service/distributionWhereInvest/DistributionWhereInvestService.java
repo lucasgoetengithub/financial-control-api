@@ -60,6 +60,7 @@ public class DistributionWhereInvestService {
 
                         AtomicReference<BigDecimal> despesas = new AtomicReference<>(BigDecimal.ZERO);
                         AtomicReference<BigDecimal> investimentos = new AtomicReference<>(BigDecimal.ZERO);
+                        AtomicReference<BigDecimal> estudos = new AtomicReference<>(BigDecimal.ZERO);
 
                         ObjectMapper mapper = new ObjectMapper();
                         List<JsonDistributionWhereInvest> investListData = mapper.convertValue(
@@ -70,8 +71,10 @@ public class DistributionWhereInvestService {
                         investListData.forEach(jsonDistributionWhereInvest -> {
                             if (jsonDistributionWhereInvest.getInvestExpense().equals("Despesa")) {
                                 despesas.set(despesas.get().add(jsonDistributionWhereInvest.getAmountUsed()));
-                            } else {
+                            } else if (jsonDistributionWhereInvest.getInvestExpense().equals("Investimentos")) {
                                 investimentos.set(investimentos.get().add(jsonDistributionWhereInvest.getAmountUsed()));
+                            } else {
+                                estudos.set(estudos.get().add(jsonDistributionWhereInvest.getAmountUsed()));
                             }
                         });
 
@@ -80,6 +83,7 @@ public class DistributionWhereInvestService {
                         totalExpensesAndInvestResponse.setExpenses(despesas.get());
                         totalExpensesAndInvestResponse.setInvestments(investimentos.get());
                         totalExpensesAndInvestResponse.setAmount(whereInvest.getAmount());
+                        totalExpensesAndInvestResponse.setEstudos(estudos.get());
 
                         listResposta.add(totalExpensesAndInvestResponse);
                     }
