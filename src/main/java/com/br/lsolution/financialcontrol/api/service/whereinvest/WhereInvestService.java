@@ -105,7 +105,7 @@ public class WhereInvestService {
 
     public List<WhereInvestResponse> findByUserIdAndReference(Integer userId, String date){
 
-        LocalDate reference = verificaECompletaData(date);
+        LocalDate reference = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         validateInformedId(userId);
         validateInformedReference(reference);
         List<Optional<WhereInvest>> optionalList = repository
@@ -119,36 +119,6 @@ public class WhereInvestService {
         });
 
         return response;
-    }
-
-    private LocalDate verificaECompletaData(String date) {
-        LocalDate reference;
-        if (date.length() == 10) {
-            reference = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        } else {
-            String aux;
-            aux = date.substring(0,5);
-            System.out.println(aux);
-            if (date.substring(6,7).equals("-")) {
-                aux = aux + "0" + date.substring(6,7);
-            } else {
-                aux = aux + date.substring(5,8);
-            }
-
-            if (date.length() == 8) {
-                aux = aux + "0" + date.substring(7);
-            } else if (date.length() == 9) {
-                if (date.substring(7, 8).equals("-")) {
-                    aux = aux + "0" + date.substring(8);
-                } else {
-                    aux = aux + date.substring(7, 8);
-                }
-            }
-            System.out.println(aux);
-            reference = LocalDate.parse(aux, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        }
-
-        return reference;
     }
 
     private List<WhereInvestResponse> newReturn(Integer userId, LocalDate now) {

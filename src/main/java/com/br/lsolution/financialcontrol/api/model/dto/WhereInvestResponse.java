@@ -2,6 +2,7 @@ package com.br.lsolution.financialcontrol.api.model.dto;
 
 import com.br.lsolution.financialcontrol.api.model.jsonField.JsonWhereInvest;
 import com.br.lsolution.financialcontrol.api.model.whereinvest.WhereInvest;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ import java.util.List;
 public class WhereInvestResponse {
     private Integer id;
     private List<JsonWhereInvest> json;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private Integer userId;
     private BigDecimal amount;
